@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TokoProduk extends Model
 {
@@ -36,4 +37,9 @@ class TokoProduk extends Model
         'tersedia_sampai'
 
     ];
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(TokoBrand::class, 'id', 'brand_id');
+    }
 }

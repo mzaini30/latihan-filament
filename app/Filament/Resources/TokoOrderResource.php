@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TokoKomentarResource\Pages;
-use App\Filament\Resources\TokoKomentarResource\RelationManagers;
-use App\Models\TokoKomentar;
+use App\Filament\Resources\TokoOrderResource\Pages;
+use App\Filament\Resources\TokoOrderResource\RelationManagers;
+use App\Models\TokoOrder;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,22 +13,29 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TokoKomentarResource extends Resource
+class TokoOrderResource extends Resource
 {
-    protected static ?string $model = TokoKomentar::class;
+    protected static ?string $model = TokoOrder::class;
 
+    protected static ?string $navigationGroup = 'Toko';
+    protected static ?string $slug = 'toko/order';
+    protected static ?string $pluralModelLabel = 'Order';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('toko_produk_id'),
-                Forms\Components\TextInput::make('judul'),
+                Forms\Components\TextInput::make('nomor'),
                 Forms\Components\TextInput::make('customer'),
-                Forms\Components\Toggle::make('visibility'),
-                Forms\Components\Textarea::make('konten')
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('status'),
+                Forms\Components\TextInput::make('mata_uang'),
+                Forms\Components\TextInput::make('harga_total')
+                    ->numeric(),
+                Forms\Components\TextInput::make('ongkir')
+                    ->numeric(),
+                Forms\Components\TextInput::make('tanggal_pemesanan')
+                    ->numeric(),
             ]);
     }
 
@@ -39,14 +46,23 @@ class TokoKomentarResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('toko_produk_id')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('judul')
+                Tables\Columns\TextColumn::make('nomor')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('visibility')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('mata_uang')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('harga_total')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('ongkir')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('tanggal_pemesanan')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -73,7 +89,7 @@ class TokoKomentarResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageTokoKomentars::route('/'),
+            'index' => Pages\ManageTokoOrders::route('/'),
         ];
     }
 }

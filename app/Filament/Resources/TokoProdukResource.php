@@ -17,7 +17,11 @@ class TokoProdukResource extends Resource
 {
     protected static ?string $model = TokoProduk::class;
 
+    protected static ?string $slug = 'toko/produk';
+    protected static ?string $navigationGroup = 'Toko';
+    protected static ?string $pluralModelLabel = 'Produk';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
 
     public static function form(Form $form): Form
     {
