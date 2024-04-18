@@ -6,6 +6,9 @@ use App\Filament\Resources\TokoOrderResource\Pages;
 use App\Filament\Resources\TokoOrderResource\RelationManagers;
 use App\Models\TokoOrder;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,16 +29,31 @@ class TokoOrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nomor'),
-                Forms\Components\TextInput::make('customer'),
-                Forms\Components\TextInput::make('status'),
-                Forms\Components\TextInput::make('mata_uang'),
+                Wizard::make([
+                    Step::make('Order Details')
+                        ->schema([
+                            Forms\Components\TextInput::make('nomor'),
+
+                            Forms\Components\TextInput::make('customer'),
+                            Forms\Components\TextInput::make('status'),
+                            Forms\Components\TextInput::make('mata_uang'),
+                            Forms\Components\TextInput::make('negara'),
+                            Forms\Components\TextInput::make('jalan'),
+                            Forms\Components\TextInput::make('kota'),
+                            Forms\Components\TextInput::make('provinsi'),
+                        ]),
+                    Step::make('Order Items')
+                        ->schema([]),
+
+                ])
+                    ->columnSpanFull()
+                /*
                 Forms\Components\TextInput::make('harga_total')
                     ->numeric(),
                 Forms\Components\TextInput::make('ongkir')
                     ->numeric(),
                 Forms\Components\TextInput::make('tanggal_pemesanan')
-                    ->numeric(),
+                    ->numeric(),*/
             ]);
     }
 
