@@ -6,21 +6,16 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TokoKomentar extends Model
+class TokoCustomer extends Model
 {
     use HasFactory, HasUlids;
-
-    protected $table = 'toko_komentar';
-
+    protected $table = 'toko_customer';
     protected $fillable = [
-        'toko_produk_id',
-
-
-        'judul',
-
-        'customer',
-        'visibility',
-        'konten'
+        'nama',
+        'email',
+        'negara',
+        'hp',
+        'tanggal_lahir',
 
     ];
 }

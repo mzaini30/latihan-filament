@@ -6,6 +6,7 @@ use App\Filament\Resources\TokoOrderResource\Pages;
 use App\Filament\Resources\TokoOrderResource\RelationManagers;
 use App\Models\TokoOrder;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
@@ -32,18 +33,49 @@ class TokoOrderResource extends Resource
                 Wizard::make([
                     Step::make('Order Details')
                         ->schema([
-                            Forms\Components\TextInput::make('nomor'),
+                            Forms\Components\TextInput::make('nomor')
+                                ->columnSpan(3),
+                            Forms\Components\TextInput::make('customer')
+                                ->columnSpan(3),
+                            Forms\Components\ToggleButtons::make('status')
+                                ->options([
+                                    'baru' => 'Baru',
+                                    'diproses' => 'Diproses',
+                                    'diantarkan' => 'Diantarkan',
+                                    'sudah_sampai' => 'Sudah Sampai',
+                                    'dibatalkan' => 'Dibatalkan',
+                                ])
+                                ->icons([
+                                    'baru' => 'heroicon-o-sparkles',
+                                    'diproses' => 'heroicon-o-arrow-path',
+                                    'diantarkan' => 'heroicon-o-truck',
+                                    'sudah_sampai' => 'heroicon-o-check-badge',
+                                    'dibatalkan' => 'heroicon-o-x-circle',
+                                ])
 
-                            Forms\Components\TextInput::make('customer'),
-                            Forms\Components\TextInput::make('status'),
-                            Forms\Components\TextInput::make('mata_uang'),
-                            Forms\Components\TextInput::make('negara'),
-                            Forms\Components\TextInput::make('jalan'),
-                            Forms\Components\TextInput::make('kota'),
-                            Forms\Components\TextInput::make('provinsi'),
-                        ]),
+                                ->inline()
+                                ->columnSpan(3),
+                            Forms\Components\TextInput::make('mata_uang')
+                                ->columnSpan(3),
+                            Forms\Components\TextInput::make('negara')
+                                ->columnSpanFull(),
+                            Forms\Components\TextInput::make('jalan')
+                                ->columnSpanFull(),
+                            Forms\Components\TextInput::make('kota')
+                                ->columnSpan(2),
+                            Forms\Components\TextInput::make('provinsi')
+                                ->columnSpan(2),
+                            Forms\Components\TextInput::make('kode_pos')
+                                ->columnSpan(2),
+                            Forms\Components\RichEditor::make('catatan')
+                                ->columnSpanFull(),
+                        ])
+                        ->columns(6),
                     Step::make('Order Items')
-                        ->schema([]),
+                        ->schema([
+                            Repeater::make('orderItem')
+                                ->schema([])
+                        ]),
 
                 ])
                     ->columnSpanFull()
