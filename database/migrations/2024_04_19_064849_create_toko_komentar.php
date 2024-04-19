@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('toko_customer', function (Blueprint $table) {
+        Schema::create('toko_komentar', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('nama')->nullable();
-            $table->string('email')->nullable();
-            $table->string('negara')->nullable();
-            $table->string('hp')->nullable();
-            $table->string('gender')->nullable();
-            $table->date('tanggal_lahir')->nullable();
+
+            $table->foreignUlid('toko_produk_id')->nullable()->index();
+
+            $table->string('judul')->nullable();
+            $table->string('customer')->nullable();
+            $table->boolean('visibility')->nullable();
+            $table->text('konten')->nullable();
+
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('toko_customer');
+        Schema::dropIfExists('toko_komentar');
     }
 };

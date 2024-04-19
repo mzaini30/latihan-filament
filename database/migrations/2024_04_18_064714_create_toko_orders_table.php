@@ -13,24 +13,22 @@ return new class extends Migration
     {
         Schema::create('toko_order', function (Blueprint $table) {
             $table->ulid('id')->primary();
+            $table->foreignUlid('customer_id')->nullable()->index();
+            $table->foreignUlid('mata_uang_id')->nullable()->index();
+            $table->foreignUlid('negara_id')->nullable()->index();
+            $table->foreignUlid('produk_id')->nullable()->index();
             $table->string('nomor')->nullable();
-            $table->string('customer')->nullable();
+            /* $table->string('customer')->nullable(); */
             $table->string('status')->nullable();
-            $table->string('mata_uang')->nullable();
+            /* $table->string('mata_uang')->nullable(); */
             $table->double('harga_total')->nullable();
             $table->double('ongkir')->nullable();
             $table->double('tanggal_pemesanan')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('toko_order_detail', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->foreignUlid('toko_order_id')->nullable()->index();
-            $table->string('produk')->nullable();
-            $table->double('banyaknya')->nullable();
-            $table->double('harga_satuan')->nullable();
-            $table->timestamps();
-        });
+        /* Schema::create('toko_order_detail', function (Blueprint $table) { */
+        /* }); */
     }
 
     /**
@@ -39,6 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('toko_order');
-        Schema::dropIfExists('toko_order_detail');
+        /* Schema::dropIfExists('toko_order_detail'); */
     }
 };

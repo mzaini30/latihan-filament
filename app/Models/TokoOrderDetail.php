@@ -19,6 +19,6 @@ class TokoOrderDetail extends Model
     ];
     public function order(): BelongsTo
     {
-        return $this->belongsTo(TokoOrder::class);
+        return $this->belongsTo(TokoOrderDetail::class);
     }
 }

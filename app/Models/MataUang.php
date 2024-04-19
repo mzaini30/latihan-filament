@@ -6,16 +6,11 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TokoCustomer extends Model
+class MataUang extends Model
 {
     use HasFactory, HasUlids;
-    protected $table = 'toko_customer';
+    protected $table = 'mata_uang';
     protected $fillable = [
-        'nama',
-        'email',
-        'negara',
-        'hp',
-        'tanggal_lahir',
-        'gender'
+        'nama'
     ];
 }

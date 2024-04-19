@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('toko_customer', function (Blueprint $table) {
+        Schema::create('negara', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('nama')->nullable();
-            $table->string('email')->nullable();
-            $table->string('negara')->nullable();
-            $table->string('hp')->nullable();
-            $table->string('gender')->nullable();
-            $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('toko_customer');
+        Schema::dropIfExists('negara');
     }
 };

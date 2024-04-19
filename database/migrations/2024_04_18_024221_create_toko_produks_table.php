@@ -39,31 +39,18 @@ return new class extends Migration
 
             $table->timestamps();
         });
-        Schema::create('toko_brand', function (Blueprint $table) {
-
-            $table->ulid('id')->primary();
-
-            $table->string('nama')->nullable();
-
-            $table->timestamps();
-        });
-        Schema::create('produk_kategori', function (Blueprint $table) {
-            $table->foreignUlid('toko_produk_id')->index();
-            $table->foreignUlid('toko_kategori_id')->index();
-        });
-        Schema::create('toko_komentar', function (Blueprint $table) {
-
-            $table->ulid('id')->primary();
-
-            $table->foreignUlid('toko_produk_id')->nullable()->index();
-
-            $table->string('judul')->nullable();
-            $table->string('customer')->nullable();
-            $table->boolean('visibility')->nullable();
-            $table->text('konten')->nullable();
-
-            $table->timestamps();
-        });
+        /* Schema::create('toko_brand', function (Blueprint $table) { */
+        /**/
+        /**/
+        /**/
+        /**/
+        /**/
+        /**/
+        /* }); */
+        /* Schema::create('produk_kategori', function (Blueprint $table) { */
+        /* }); */
+        /* Schema::create('toko_komentar', function (Blueprint $table) { */
+        /* }); */
     }
 
     /**
@@ -72,8 +59,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('toko_produk');
-        Schema::dropIfExists('toko_brand');
-        Schema::dropIfExists('produk_kategori');
-        Schema::dropIfExists('toko_komentar');
+        /* Schema::dropIfExists('toko_brand'); */
+        /* Schema::dropIfExists('produk_kategori'); */
+        /* Schema::dropIfExists('toko_komentar'); */
     }
 };
