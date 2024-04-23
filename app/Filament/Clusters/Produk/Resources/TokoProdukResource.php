@@ -1,14 +1,22 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Produk\Resources;
 
-use App\Filament\Resources\TokoProdukResource\Pages;
+use App\Filament\Clusters\Produk;
+use App\Filament\Clusters\Produk\Resources\TokoProdukResource\Pages;
+use App\Filament\Clusters\Produk\Resources\TokoProdukResource\Widgets\StatistikProduk;
 use App\Filament\Resources\TokoProdukResource\RelationManagers;
 use App\Models\TokoProduk;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\QueryBuilder;
+use Filament\Tables\Filters\QueryBuilder\Constraints\BooleanConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints\NumberConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,10 +25,15 @@ class TokoProdukResource extends Resource
 {
     protected static ?string $model = TokoProduk::class;
 
-    protected static ?string $slug = 'toko/produk';
-    protected static ?string $navigationGroup = 'Toko';
     protected static ?string $pluralModelLabel = 'Produk';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $cluster = Produk::class;
+    public static function getWidgets(): array
+    {
+        return [
+            StatistikProduk::class
+        ];
+    }
 
 
     public static function form(Form $form): Form
@@ -55,6 +68,14 @@ class TokoProdukResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+
+
+
+
+
+
+
+
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
@@ -100,9 +121,31 @@ class TokoProdukResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters(
+                [
+                    QueryBuilder::make()
+                        ->constraints([
+                            TextConstraint::make('nama'),
+                            TextConstraint::make('slug'),
+                            TextConstraint::make('sku'),
+                            TextConstraint::make('barcode'),
+                            TextConstraint::make('description'),
+                            NumberConstraint::make('compare_at_price'),
+                            NumberConstraint::make('price'),
+                            NumberConstraint::make('cost_per_item'),
+                            NumberConstraint::make('kuantitas'),
+                            NumberConstraint::make('stok_aman'),
+                            BooleanConstraint::make('visibility'),
+                            BooleanConstraint::make('featured'),
+                            BooleanConstraint::make('backorder'),
+                            BooleanConstraint::make('requires_shipping'),
+                            DateConstraint::make('published_at'),
+                        ])
+                        ->constraintPickerColumns(2),
+                ],
+                layout: FiltersLayout::AboveContentCollapsible
+            )
+
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

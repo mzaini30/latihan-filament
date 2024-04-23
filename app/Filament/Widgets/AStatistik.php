@@ -6,7 +6,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 
-class Statistik extends BaseWidget
+class AStatistik extends BaseWidget
 {
     protected static bool $isLazy = false;
     protected function getStats(): array

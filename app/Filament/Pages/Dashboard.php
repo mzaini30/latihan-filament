@@ -2,7 +2,9 @@
 
 namespace Filament\Pages;
 
+use Carbon\Carbon;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -35,7 +37,12 @@ class Dashboard extends Page
                                 'no' => 'No'
                             ])
                             ->native(false),
+                        DatePicker::make('start_date')
+                            ->native(false),
+                        DatePicker::make('end_date')
+                            ->native(false),
                     ])
+                    ->columns(3)
             ]);
     }
     protected static string $view = 'filament-panels::pages.dashboard';
